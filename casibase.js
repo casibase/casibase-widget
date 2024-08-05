@@ -5,7 +5,7 @@
     popupWidth: "min(550px, calc(100vw - 40px))",
     popupHeight: "min(600px, calc(100vh - 100px))",
     buttonText: "Chat with AI",
-    popupTitle: "Chat with AI"
+    popupTitle: "Casibase AI Assistant"
   };
 
   let userConfig = { ...defaultConfig };
@@ -34,15 +34,11 @@
 
   function darkenColor(color, factor = 0.8) {
     const rgb = parseColor(color);
-    return `rgb(${rgb
-      .map((c) => Math.max(0, Math.floor(c * factor)))
-      .join(",")})`;
+    return `rgb(${rgb.map((c) => Math.max(0, Math.floor(c * factor))).join(",")})`;
   }
 
   function applyStyles() {
-    const animationStyles = userConfig.enableAnimations
-      ? `transition: all 0.3s ease;`
-      : `transition: none;`;
+    const animationStyles = userConfig.enableAnimations ? `transition: all 0.3s ease;` : `transition: none;`;
 
     const styles = `
       .chat-button {
@@ -167,15 +163,14 @@
 
     if (userConfig.endpoint) {
       const iframe = document.createElement("iframe");
-      iframe.src = userConfig.endpoint;
+      iframe.src = userConfig.endpoint + "/?isRaw=1";;
       iframe.title = userConfig.popupTitle;
       iframe.className = "chat-iframe";
       container.appendChild(iframe);
     } else {
       const message = document.createElement("div");
       message.className = "chat-message";
-      message.textContent =
-        "Please configure the endpoint to enable the chat feature.";
+      message.textContent = "Please configure the endpoint to enable the chat feature.";
       container.appendChild(message);
     }
 
@@ -217,9 +212,7 @@
       userConfig.hoverColor || darkenColor(userConfig.themeColor);
 
     if (!userConfig.endpoint) {
-      console.warn(
-        "Casibase Chat: No endpoint provided. Chat functionality will be limited."
-      );
+      console.warn("Casibase Chat: No endpoint provided. Chat functionality will be limited.");
     }
 
     if (document.readyState === "complete") {
