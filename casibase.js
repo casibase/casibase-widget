@@ -2,9 +2,10 @@
   const defaultConfig = {
     themeColor: "rgb(87,52,211)",
     enableAnimations: true,
-    chatWidth: "min(550px, calc(100vw - 40px))",
-    chatHeight: "min(600px, calc(100vh - 100px))",
-    chatText: "Chat with AI",
+    popupWidth: "min(550px, calc(100vw - 40px))",
+    popupHeight: "min(600px, calc(100vh - 100px))",
+    buttonText: "Chat with AI",
+    popupTitle: "Chat with AI"
   };
 
   let userConfig = { ...defaultConfig };
@@ -97,8 +98,8 @@
         position: fixed;
         bottom: 80px;
         right: 20px;
-        width: ${userConfig.chatWidth};
-        height: ${userConfig.chatHeight};
+        width: ${userConfig.popupWidth};
+        height: ${userConfig.popupHeight};
         border-radius: 10px;
         z-index: 1001;
         flex-direction: column;
@@ -151,7 +152,7 @@
           <path d="M1002.7 448C1002.7 212.4 783 21.3 512 21.3S21.3 212.4 21.3 448c0 194.7 149.9 358.9 354.8 410.1-21.1 66.9-77.4 123.2-77.4 123.2s548.8-34.3 677.6-395c17.1-43.4 26.4-89.9 26.4-138.3z" fill="#ffffff"></path>
         </g>
       </svg>
-      <span class="chat-text">${userConfig.chatText}</span>
+      <span class="chat-text">${userConfig.buttonText}</span>
       <svg class="close-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
         <path d="M720.298667 768c-12.714667 0-23.850667-4.778667-33.408-14.293333L270.293333 337.066667c-19.072-19.114667-19.072-49.322667 0-66.816 19.114667-19.072 49.322667-19.072 66.816 0l416.597334 415.018666c19.072 19.072 19.072 49.28 0 66.773334-9.557333 11.136-22.272 15.914667-33.408 15.914666z" fill="#ffffff"></path>
         <path d="M303.701333 768c-12.714667 0-23.850667-4.778667-33.408-14.293333-19.072-19.114667-19.072-49.322667 0-66.816l415.018667-416.597334c19.072-19.072 49.28-19.072 66.773333 0 19.114667 19.114667 19.114667 49.322667 0 66.816l-414.976 416.597334a45.781333 45.781333 0 0 1-33.408 14.293333z" fill="#ffffff"></path>
@@ -167,7 +168,7 @@
     if (userConfig.endpoint) {
       const iframe = document.createElement("iframe");
       iframe.src = userConfig.endpoint;
-      iframe.title = userConfig.chatText;
+      iframe.title = userConfig.popupTitle;
       iframe.className = "chat-iframe";
       container.appendChild(iframe);
     } else {
