@@ -1,6 +1,6 @@
 (function () {
   const defaultConfig = {
-    themeColor: "#403B79",
+    themeColor: "rgb(87,52,211)",
     enableAnimations: true,
   };
 
@@ -155,10 +155,10 @@
   function createChatContainer() {
     const container = document.createElement("div");
     container.className = "chat-container";
-    
+
     if (userConfig.endpoint) {
       const iframe = document.createElement("iframe");
-      iframe.src = userConfig.endpoint;
+      iframe.src = userConfig.endpoint + "/?isRaw=1";
       iframe.title = "Chat with AI";
       iframe.className = "chat-iframe";
       container.appendChild(iframe);
@@ -204,11 +204,11 @@
   window.initCasibaseChat = function (config) {
     userConfig = { ...defaultConfig, ...config };
     userConfig.hoverColor = userConfig.hoverColor || darkenColor(userConfig.themeColor);
-    
+
     if (!userConfig.endpoint) {
       console.warn("Casibase Chat: No endpoint provided. Chat functionality will be limited.");
     }
-    
+
     if (document.readyState === "complete") {
       initChatWidget();
     } else {
