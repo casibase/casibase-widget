@@ -1,7 +1,6 @@
 (function () {
   const defaultConfig = {
     themeColor: "#403B79",
-    endpoint: "https://ai.casbin.com/?isRaw=1",
     enableAnimations: true,
   };
 
@@ -116,6 +115,17 @@
         border: none;
         margin-left: -2px;
       }
+      .chat-message {
+        padding: 20px;
+        text-align: center;
+        color: #fff;
+        background-color: ${userConfig.themeColor};
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: Arial, sans-serif;
+      }
     `;
 
     let styleEl = document.getElementById("casibase-chat-styles");
@@ -145,11 +155,20 @@
   function createChatContainer() {
     const container = document.createElement("div");
     container.className = "chat-container";
-    const iframe = document.createElement("iframe");
-    iframe.src = userConfig.endpoint;
-    iframe.title = "Chat with AI";
-    iframe.className = "chat-iframe";
-    container.appendChild(iframe);
+    
+    if (userConfig.endpoint) {
+      const iframe = document.createElement("iframe");
+      iframe.src = userConfig.endpoint;
+      iframe.title = "Chat with AI";
+      iframe.className = "chat-iframe";
+      container.appendChild(iframe);
+    } else {
+      const message = document.createElement("div");
+      message.className = "chat-message";
+      message.textContent = "Please configure the endpoint to enable the chat feature.";
+      container.appendChild(message);
+    }
+
     return container;
   }
 
@@ -185,6 +204,11 @@
   window.initCasibaseChat = function (config) {
     userConfig = { ...defaultConfig, ...config };
     userConfig.hoverColor = userConfig.hoverColor || darkenColor(userConfig.themeColor);
+    
+    if (!userConfig.endpoint) {
+      console.warn("Casibase Chat: No endpoint provided. Chat functionality will be limited.");
+    }
+    
     if (document.readyState === "complete") {
       initChatWidget();
     } else {

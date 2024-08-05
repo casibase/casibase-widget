@@ -24,9 +24,8 @@ You can choose one of the following two ways to customize Casibase AI chat:
   document.addEventListener("DOMContentLoaded", function () {
     initCasibaseChat({
       themeColor: "#403B79",
-      hoverColor: "#2E2A57",
-      aiUrl: "https://ai.casbin.com/?isRaw=1",
-      enableAnimations: true
+      endpoint: "URL_ADDRESS",
+      enableAnimations: true  // Set this parameter to false to disable animation effects
     });
   });
 </script>
@@ -35,17 +34,15 @@ You can choose one of the following two ways to customize Casibase AI chat:
 ```js
 <script>
   initCasibaseChat({
-    themeColor: "#403B79",
-    hoverColor: "#2E2A57",
-    aiUrl: "https://ai.casbin.com/?isRaw=1",
-    enableAnimations: true
+    themeColor: "#403B79",  
+    endpoint: "URL_ADDRESS",
+    enableAnimations: true  // Set this parameter to false to disable animation effects
   });
 </script>
 ```
 **Parameter Description** 
-- `themeColor`: The theme color of the chat button (default: "#403B79") 
-- `hoverColor`: The color of the chat button when hovered (default: "#2E2A57") 
-- `aiUrl`: The URL for the AI chat service (default: "https://ai.casbin.com/?isRaw=1") 
+- `themeColor`: The theme color of the chat button (default: "#403B79" or rgb(64, 59, 121)) 
+- `endpoint`: The URL for the AI chat service (default: none, must be provided)
 - `enableAnimations`: Whether to enable animation effects (default: true)
 
 ## Complete example
@@ -63,8 +60,7 @@ Here are two complete HTML examples illustrating the use of CDN and local files,
       document.addEventListener("DOMContentLoaded", function () {
         initCasibaseChat({
           themeColor: "#ff5733",
-          hoverColor: "#ff3e3e",
-          aiUrl: "https://ai.casbin.com/?isRaw=1",
+          endpoint: "https://ai.casbin.com/?isRaw=1",
           enableAnimations: true
         });
       });
@@ -90,8 +86,7 @@ Here are two complete HTML examples illustrating the use of CDN and local files,
       document.addEventListener("DOMContentLoaded", function () {
         initCasibaseChat({
           themeColor: "#ff5733",
-          hoverColor: "#ff3e3e",
-          aiUrl: "https://ai.casbin.com/?isRaw=1",
+          endpoint: "https://ai.casbin.com/?isRaw=1",
           enableAnimations: true
         });
       });
