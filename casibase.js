@@ -2,33 +2,41 @@
   const defaultConfig = {
     themeColor: "rgb(87,52,211)",
     enableAnimations: true,
+    popupWidth: "min(550px, calc(100vw - 40px))",
+    popupHeight: "min(600px, calc(100vh - 100px))",
+    buttonText: "Chat with AI",
+    popupTitle: "Chat with AI"
   };
 
   let userConfig = { ...defaultConfig };
 
   function parseColor(color) {
-    if (color.startsWith('#')) {
+    if (color.startsWith("#")) {
       return hexToRgb(color);
-    } else if (color.startsWith('rgb')) {
+    } else if (color.startsWith("rgb")) {
       return color.match(/\d+/g).map(Number);
     }
-    throw new Error('Unsupported color format');
+    throw new Error("Unsupported color format");
   }
 
   function hexToRgb(hex) {
     const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? [
-      parseInt(result[1], 16),
-      parseInt(result[2], 16),
-      parseInt(result[3], 16)
-    ] : null;
+    return result
+      ? [
+          parseInt(result[1], 16),
+          parseInt(result[2], 16),
+          parseInt(result[3], 16),
+        ]
+      : null;
   }
 
   function darkenColor(color, factor = 0.8) {
     const rgb = parseColor(color);
-    return `rgb(${rgb.map(c => Math.max(0, Math.floor(c * factor))).join(',')})`;
+    return `rgb(${rgb
+      .map((c) => Math.max(0, Math.floor(c * factor)))
+      .join(",")})`;
   }
 
   function applyStyles() {
@@ -69,7 +77,6 @@
       .chat-button.open .chat-text {
         opacity: 0;
         transform: scale(0);
-        ${animationStyles}
       }
       .chat-button .chat-icon,
       .chat-button .chat-text {
@@ -80,20 +87,19 @@
         opacity: 0;
         transform: rotate(180deg) scale(1);
         ${animationStyles}
-        font-size: 30px;
-        font-weight: 100px;
-        line-height: 1;
+        width: 40px;
+        height: 40px;
       }
       .chat-button.open .close-icon {
         opacity: 1;
-        transform: rotate(90deg) scale(1);
+        transform: rotate(0deg) scale(1);
       }
       .chat-container {
         position: fixed;
         bottom: 80px;
         right: 20px;
-        width: min(550px, calc(100vw - 40px));
-        height: min(600px, calc(100vh - 100px));
+        width: ${userConfig.popupWidth};
+        height: ${userConfig.popupHeight};
         border-radius: 10px;
         z-index: 1001;
         flex-direction: column;
@@ -146,8 +152,11 @@
           <path d="M1002.7 448C1002.7 212.4 783 21.3 512 21.3S21.3 212.4 21.3 448c0 194.7 149.9 358.9 354.8 410.1-21.1 66.9-77.4 123.2-77.4 123.2s548.8-34.3 677.6-395c17.1-43.4 26.4-89.9 26.4-138.3z" fill="#ffffff"></path>
         </g>
       </svg>
-      <span class="chat-text">Chat with AI</span>
-      <span class="close-icon">X</span>
+      <span class="chat-text">${userConfig.buttonText}</span>
+      <svg class="close-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+        <path d="M720.298667 768c-12.714667 0-23.850667-4.778667-33.408-14.293333L270.293333 337.066667c-19.072-19.114667-19.072-49.322667 0-66.816 19.114667-19.072 49.322667-19.072 66.816 0l416.597334 415.018666c19.072 19.072 19.072 49.28 0 66.773334-9.557333 11.136-22.272 15.914667-33.408 15.914666z" fill="#ffffff"></path>
+        <path d="M303.701333 768c-12.714667 0-23.850667-4.778667-33.408-14.293333-19.072-19.114667-19.072-49.322667 0-66.816l415.018667-416.597334c19.072-19.072 49.28-19.072 66.773333 0 19.114667 19.114667 19.114667 49.322667 0 66.816l-414.976 416.597334a45.781333 45.781333 0 0 1-33.408 14.293333z" fill="#ffffff"></path>
+      </svg>
     `;
     return button;
   }
@@ -158,14 +167,15 @@
 
     if (userConfig.endpoint) {
       const iframe = document.createElement("iframe");
-      iframe.src = userConfig.endpoint + "/?isRaw=1";
-      iframe.title = "Chat with AI";
+      iframe.src = userConfig.endpoint;
+      iframe.title = userConfig.popupTitle;
       iframe.className = "chat-iframe";
       container.appendChild(iframe);
     } else {
       const message = document.createElement("div");
       message.className = "chat-message";
-      message.textContent = "Please configure the endpoint to enable the chat feature.";
+      message.textContent =
+        "Please configure the endpoint to enable the chat feature.";
       container.appendChild(message);
     }
 
@@ -203,10 +213,13 @@
 
   window.initCasibaseChat = function (config) {
     userConfig = { ...defaultConfig, ...config };
-    userConfig.hoverColor = userConfig.hoverColor || darkenColor(userConfig.themeColor);
+    userConfig.hoverColor =
+      userConfig.hoverColor || darkenColor(userConfig.themeColor);
 
     if (!userConfig.endpoint) {
-      console.warn("Casibase Chat: No endpoint provided. Chat functionality will be limited.");
+      console.warn(
+        "Casibase Chat: No endpoint provided. Chat functionality will be limited."
+      );
     }
 
     if (document.readyState === "complete") {
