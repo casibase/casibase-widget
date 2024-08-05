@@ -1,5 +1,9 @@
 # casibase-tracker
 
+![image](https://github.com/user-attachments/assets/e68510fe-107d-4718-983f-371b5f09e6e3)
+
+![image](https://github.com/user-attachments/assets/682ca165-7941-4739-a5d4-a3bd36b6ce9a)
+
 Tracking code for the chat widget of the Casibase AI knowledge base: https://casibase.org/
 
 A real project that uses this tracking code can be found at Casbin website: https://casbin.org/
