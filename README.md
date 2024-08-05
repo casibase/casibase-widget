@@ -39,6 +39,10 @@ You can also load the chat widget after the full page load:
 - `endpoint` (mandatory): The URL for Casibase
 - `themeColor` (optional): The theme color of the widget (default: `rgb(64,59,121)`)
 - `enableAnimations` (optional): Whether to enable animation effects when opening the chat window (default: `true`)
+- `chatWidth` (optional): The width of the chat window (default: "550px")
+- `chatHeight`(optional): The height of the chat window (default: "600px")
+- `chatText`(optional): The text displayed on the chat button and title (default: "Chat with AI")
+
 
 An example to use the parameters is:
 
@@ -49,6 +53,9 @@ An example to use the parameters is:
         endpoint: "https://ai.casbin.com",
         themeColor: "rgb(64,59,121)",
         enableAnimations: true,
+        chatWidth: "400px",
+        chatHeight: "500px",
+        chatText: "Chat with AI",
     });
   });
 </script>
