@@ -1,21 +1,41 @@
 (function () {
   const defaultConfig = {
     themeColor: "#403B79",
-    hoverColor: "#2E2A57",
-    aiUrl: "https://ai.casbin.com/?isRaw=1",
+    endpoint: "https://ai.casbin.com/?isRaw=1",
     enableAnimations: true,
   };
 
   let userConfig = { ...defaultConfig };
 
+  function parseColor(color) {
+    if (color.startsWith('#')) {
+      return hexToRgb(color);
+    } else if (color.startsWith('rgb')) {
+      return color.match(/\d+/g).map(Number);
+    }
+    throw new Error('Unsupported color format');
+  }
+
+  function hexToRgb(hex) {
+    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? [
+      parseInt(result[1], 16),
+      parseInt(result[2], 16),
+      parseInt(result[3], 16)
+    ] : null;
+  }
+
+  function darkenColor(color, factor = 0.8) {
+    const rgb = parseColor(color);
+    return `rgb(${rgb.map(c => Math.max(0, Math.floor(c * factor))).join(',')})`;
+  }
+
   function applyStyles() {
     const animationStyles = userConfig.enableAnimations
-      ? `
-      transition: all 0.3s ease;
-    `
-      : `
-      transition: none;
-    `;
+      ? `transition: all 0.3s ease;`
+      : `transition: none;`;
 
     const styles = `
       .chat-button {
@@ -126,7 +146,7 @@
     const container = document.createElement("div");
     container.className = "chat-container";
     const iframe = document.createElement("iframe");
-    iframe.src = userConfig.aiUrl;
+    iframe.src = userConfig.endpoint;
     iframe.title = "Chat with AI";
     iframe.className = "chat-iframe";
     container.appendChild(iframe);
@@ -164,6 +184,7 @@
 
   window.initCasibaseChat = function (config) {
     userConfig = { ...defaultConfig, ...config };
+    userConfig.hoverColor = userConfig.hoverColor || darkenColor(userConfig.themeColor);
     if (document.readyState === "complete") {
       initChatWidget();
     } else {
