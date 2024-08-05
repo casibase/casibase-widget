@@ -1,4 +1,4 @@
-# casibase-tracker
+# casibase-widget
 
 ![image](https://github.com/user-attachments/assets/e68510fe-107d-4718-983f-371b5f09e6e3)
 
@@ -10,7 +10,7 @@ A real project that uses this tracking code can be found at Casbin website: http
 
 ## Complete example
 
-See source code at: https://github.com/casibase/casibase-tracker/blob/master/example.html
+See source code at: https://github.com/casibase/casibase-widget/blob/master/example.html
 
 The demo of it is hosted at: https://tcdn.casibase.org/example
 
