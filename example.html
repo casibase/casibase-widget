@@ -1,20 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Casibase Chat Widget Test</title>
-    <script src="https://tcdn.casibase.org/casibase.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        initCasibaseChat({
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casibase Chat Widget Test</title>
+  <script>
+    (function (w, d, s, c, i) {
+      var j = d.createElement(s);
+      j.async = true;
+      j.src = 'https://tcdn.casibase.org/casibase.js';
+      j.onload = function () {
+        w[c]('init', {
           endpoint: "https://ai.casbin.com",
         });
-      });
-    </script>
-  </head>
-  <body>
-    <h1>Casibase Chat Widget Test Page</h1>
-    <p>You should see a chat button in the bottom right corner of this page.</p>
-  </body>
+      };
+      var f = d.getElementsByTagName(s)[0];
+      f.parentNode.insertBefore(j, f);
+      w[c] = w[c] || function () {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+    })(window, document, "script", "casibaseChat");
+  </script>
+</head>
+
+<body>
+  <h1>Casibase Chat Widget Test Page</h1>
+  <p>You should see a chat button in the bottom right corner of this page.</p>
+</body>
+
 </html>
