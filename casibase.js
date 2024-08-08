@@ -199,7 +199,7 @@
     userConfig.hoverColor = userConfig.hoverColor || darkenColor(userConfig.themeColor);
 
     if (!userConfig.endpoint) {
-      console.warn("Casibase Chat: No endpoint provided. Chat functionality will be limited.");
+      console.warn("Casibase Widget error: No endpoint provided.");
     }
 
     applyStyles();
@@ -223,7 +223,7 @@
         initChatWidget(config);
       }
     } else {
-      console.warn(`Casibase Chat: Unknown command "${command}"`);
+      console.warn(`Casibase Widget error: Unknown command: "${command}"`);
     }
   };
 
