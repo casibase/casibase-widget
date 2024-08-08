@@ -194,31 +194,43 @@
     }
   }
 
-  function initChatWidget() {
+  function initChatWidget(config) {
+    userConfig = { ...defaultConfig, ...config };
+    userConfig.hoverColor = userConfig.hoverColor || darkenColor(userConfig.themeColor);
+
+    if (!userConfig.endpoint) {
+      console.warn("Casibase Widget error: No endpoint provided.");
+    }
+
     applyStyles();
     const chatButton = createChatButton();
     const chatContainer = createChatContainer();
     document.body.appendChild(chatButton);
     document.body.appendChild(chatContainer);
 
-    chatButton.addEventListener("click", () =>
-      toggleChat(chatButton, chatContainer)
-    );
+    chatButton.addEventListener("click", () => toggleChat(chatButton, chatContainer));
   }
 
-  window.initCasibaseChat = function (config) {
-    userConfig = { ...defaultConfig, ...config };
-    userConfig.hoverColor =
-      userConfig.hoverColor || darkenColor(userConfig.themeColor);
-
-    if (!userConfig.endpoint) {
-      console.warn("Casibase Chat: No endpoint provided. Chat functionality will be limited.");
-    }
-
-    if (document.readyState === "complete") {
-      initChatWidget();
+  window.casibaseChat = function() {
+    const args = Array.from(arguments);
+    const command = args[0];
+    
+    if (command === 'init') {
+      const config = args[1] || {};
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => initChatWidget(config));
+      } else {
+        initChatWidget(config);
+      }
     } else {
-      window.addEventListener("load", initChatWidget);
+      console.warn(`Casibase Widget error: Unknown command: "${command}"`);
     }
   };
+
+  window.casibaseChat.q = window.casibaseChat.q || [];
+
+  const commands = window.casibaseChat.q;
+  for (let i = 0; i < commands.length; i++) {
+    window.casibaseChat.apply(null, commands[i]);
+  }
 })();

@@ -20,22 +20,22 @@ Put the following tracking code (HTML tag) into your main HTML file like index.h
 
 ```js
 <script>
-  initCasibaseChat({
-    endpoint: "https://ai.casbin.com",
-  });
-</script>
-```
-
-You can also load the chat widget after the full page load:
-
-```js
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    initCasibaseChat({
-        endpoint: "https://ai.casbin.com",
-    });
-  });
-</script>
+    (function (w, d, s, c, i) {
+      var j = d.createElement(s);
+      j.async = true;
+      j.src = 'https://tcdn.casibase.org/casibase.js';
+      j.onload = function () {
+        w[c]('init', {
+          endpoint: "https://ai.casbin.com",
+        });
+      };
+      var f = d.getElementsByTagName(s)[0];
+      f.parentNode.insertBefore(j, f);
+      w[c] = w[c] || function () {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+    })(window, document, "script", "casibaseChat");
+  </script>
 ```
 
 ## Parameters
@@ -48,21 +48,30 @@ You can also load the chat widget after the full page load:
 - `buttonText` (optional): The text displayed on the chat button (default: "Chat with AI")
 - `popupTitle` (optional): The title of the chat popup, used as the iframe title attribute (default: "Chat with AI")
 
-
 An example to use the parameters is:
 
 ```js
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    initCasibaseChat({
-        endpoint: "https://ai.casbin.com",
-        themeColor: "rgb(64,59,121)",
-        enableAnimations: true,
-        chatWidth: "550px",
-        chatHeight: "600px",
-        buttonText: "Chat with AI",
-        popupTitle: "Chat with AI"
-    });
-  });
-</script>
+    (function (w, d, s, c, i) {
+      var j = d.createElement(s);
+      j.async = true;
+      j.src = 'https://tcdn.casibase.org/casibase.js';
+      j.onload = function () {
+        w[c]('init', {
+          endpoint: "https://ai.casbin.com",
+          themeColor: "rgb(64,59,121)",
+          enableAnimations: true,
+          popupWidth: "550px",
+          popupHeight: "600px",
+          buttonText: "Chat with AI",
+          popupTitle: "Chat with AI"
+        });
+      };
+      var f = d.getElementsByTagName(s)[0];
+      f.parentNode.insertBefore(j, f);
+      w[c] = w[c] || function () {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+    })(window, document, "script", "casibaseChat");
+  </script>
 ```
