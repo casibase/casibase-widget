@@ -47,6 +47,7 @@ Put the following tracking code (HTML tag) into your main HTML file like index.h
 - `popupHeight`(optional): The height of the chat window (default: "600px")
 - `buttonText` (optional): The text displayed on the chat button (default: "Chat with AI")
 - `popupTitle` (optional): The title of the chat popup, used as the iframe title attribute (default: "Chat with AI")
+- `popupTime` (optional): The time in seconds after which the chat window automatically opens. Set to -1 to disable auto-opening (default: -1)
 
 An example to use the parameters is:
 
@@ -64,7 +65,8 @@ An example to use the parameters is:
         popupWidth: "550px",
         popupHeight: "600px",
         buttonText: "Chat with AI",
-        popupTitle: "Casibase AI Assistant"
+        popupTitle: "Casibase AI Assistant",
+        popupTime: 5
       });
     };
     var f = d.getElementsByTagName(s)[0];
