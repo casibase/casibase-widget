@@ -67,8 +67,8 @@ An example to use the parameters is:
         popupHeight: "600px",
         buttonText: "Chat with AI",
         popupTitle: "Casibase AI Assistant",
-        popupTime: 5,
-        buttonPosition: "TopLeft"
+        popupTime: -1,
+        buttonPosition: "BottomRight"
       });
     };
     var f = d.getElementsByTagName(s)[0];
