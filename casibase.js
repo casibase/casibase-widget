@@ -5,7 +5,8 @@
     popupWidth: "min(550px, calc(100vw - 40px))",
     popupHeight: "min(600px, calc(100vh - 100px))",
     buttonText: "Chat with AI",
-    popupTitle: "Casibase AI Assistant"
+    popupTitle: "Casibase AI Assistant",
+    popupTime: -1
   };
 
   let userConfig = { ...defaultConfig };
@@ -209,6 +210,14 @@
     document.body.appendChild(chatContainer);
 
     chatButton.addEventListener("click", () => toggleChat(chatButton, chatContainer));
+    
+    if (userConfig.popupTime >= 0) {
+      setTimeout(() => {
+        if (!chatContainer.classList.contains("open")) {
+          toggleChat(chatButton, chatContainer);
+        }
+      }, userConfig.popupTime * 1000);
+    }
   }
 
   window.casibaseChat = function() {
