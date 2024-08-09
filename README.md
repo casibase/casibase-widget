@@ -16,26 +16,26 @@ The demo of it is hosted at: https://tcdn.casibase.org/example
 
 ## Get Started
 
-Put the following tracking code (HTML tag) into your main HTML file like index.html:
+Put the following tracking code (HTML tag) into your main HTML file like index.html. If you need the Javascript version, just remove the `<script>...</script>` tag from it.
 
-```js
+```html
 <script>
-    (function (w, d, s, c, i) {
-      var j = d.createElement(s);
-      j.async = true;
-      j.src = 'https://tcdn.casibase.org/casibase.js';
-      j.onload = function () {
-        w[c]('init', {
-          endpoint: "https://ai.casbin.com",
-        });
-      };
-      var f = d.getElementsByTagName(s)[0];
-      f.parentNode.insertBefore(j, f);
-      w[c] = w[c] || function () {
-        (w[c].q = w[c].q || []).push(arguments);
-      };
-    })(window, document, "script", "casibaseChat");
-  </script>
+  (function (w, d, s, c, i) {
+    var j = d.createElement(s);
+    j.async = true;
+    j.src = 'https://tcdn.casibase.org/casibase.js';
+    j.onload = function () {
+      w[c]('init', {
+        endpoint: "https://ai.casbin.com",
+      });
+    };
+    var f = d.getElementsByTagName(s)[0];
+    f.parentNode.insertBefore(j, f);
+    w[c] = w[c] || function () {
+      (w[c].q = w[c].q || []).push(arguments);
+    };
+  })(window, document, "script", "casibaseChat");
+</script>
 ```
 
 ## Parameters
@@ -50,28 +50,28 @@ Put the following tracking code (HTML tag) into your main HTML file like index.h
 
 An example to use the parameters is:
 
-```js
+```html
 <script>
-    (function (w, d, s, c, i) {
-      var j = d.createElement(s);
-      j.async = true;
-      j.src = 'https://tcdn.casibase.org/casibase.js';
-      j.onload = function () {
-        w[c]('init', {
-          endpoint: "https://ai.casbin.com",
-          themeColor: "rgb(64,59,121)",
-          enableAnimations: true,
-          popupWidth: "550px",
-          popupHeight: "600px",
-          buttonText: "Chat with AI",
-          popupTitle: "Chat with AI"
-        });
-      };
-      var f = d.getElementsByTagName(s)[0];
-      f.parentNode.insertBefore(j, f);
-      w[c] = w[c] || function () {
-        (w[c].q = w[c].q || []).push(arguments);
-      };
-    })(window, document, "script", "casibaseChat");
-  </script>
+  (function (w, d, s, c, i) {
+    var j = d.createElement(s);
+    j.async = true;
+    j.src = 'https://tcdn.casibase.org/casibase.js';
+    j.onload = function () {
+      w[c]('init', {
+        endpoint: "https://ai.casbin.com",
+        themeColor: "rgb(64,59,121)",
+        enableAnimations: true,
+        popupWidth: "550px",
+        popupHeight: "600px",
+        buttonText: "Chat with AI",
+        popupTitle: "Casibase AI Assistant"
+      });
+    };
+    var f = d.getElementsByTagName(s)[0];
+    f.parentNode.insertBefore(j, f);
+    w[c] = w[c] || function () {
+      (w[c].q = w[c].q || []).push(arguments);
+    };
+  })(window, document, "script", "casibaseChat");
+</script>
 ```
