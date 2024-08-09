@@ -6,7 +6,8 @@
     popupHeight: "min(600px, calc(100vh - 100px))",
     buttonText: "Chat with AI",
     popupTitle: "Casibase AI Assistant",
-    popupTime: -1
+    popupTime: -1,
+    buttonPosition: "BottomRight"
   };
 
   let userConfig = { ...defaultConfig };
@@ -41,11 +42,21 @@
   function applyStyles() {
     const animationStyles = userConfig.enableAnimations ? `transition: all 0.3s ease;` : `transition: none;`;
 
+    const buttonPositionStyles = {
+      TopLeft: "top: 20px; left: 20px;",
+      MiddleLeft: "top: 50%; left: 20px; transform: translateY(-50%);",
+      BottomLeft: "bottom: 20px; left: 20px;",
+      TopRight: "top: 20px; right: 20px;",
+      MiddleRight: "top: 50%; right: 20px; transform: translateY(-50%);",
+      BottomRight: "bottom: 20px; right: 20px;"
+    };
+
+    const buttonPosition = buttonPositionStyles[userConfig.buttonPosition] || buttonPositionStyles.BottomRight;
+
     const styles = `
       .chat-button {
         position: fixed;
-        bottom: 20px;
-        right: 20px;
+        ${buttonPosition}
         background-color: ${userConfig.themeColor} !important;
         color: white;
         border: none;
@@ -161,6 +172,18 @@
   function createChatContainer() {
     const container = document.createElement("div");
     container.className = "chat-container";
+
+    const containerPositions = {
+      TopLeft: "top: 80px; left: 20px;",
+      MiddleLeft: "top: 50%; left: 80px; transform: translateY(-50%);",
+      BottomLeft: "bottom: 80px; left: 20px;",
+      TopRight: "top: 80px; right: 20px;",
+      MiddleRight: "top: 50%; right: 80px; transform: translateY(-50%);",
+      BottomRight: "bottom: 80px; right: 20px;"
+    };
+
+    const containerPosition = containerPositions[userConfig.buttonPosition] || containerPositions.BottomRight;
+    container.style.cssText = containerPosition;
 
     if (userConfig.endpoint) {
       const iframe = document.createElement("iframe");
