@@ -1,6 +1,6 @@
 {
     "name": "casibase-widget",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "description": "Casibase Chat Widget",
     "main": "casibase.js",
     "scripts": {
