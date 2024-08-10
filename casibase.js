@@ -7,7 +7,8 @@
     buttonText: "Chat with AI",
     popupTitle: "Casibase AI Assistant",
     popupTime: -1,
-    buttonPosition: "BottomRight"
+    buttonPosition: "BottomRight",
+    closeOnLeave: false
   };
 
   let userConfig = { ...defaultConfig };
@@ -240,6 +241,16 @@
           toggleChat(chatButton, chatContainer);
         }
       }, userConfig.popupTime * 1000);
+    }
+
+    if (userConfig.closeOnLeave) {
+      document.addEventListener("click", (event) => {
+        if (chatContainer.classList.contains("open") &&
+            !chatContainer.contains(event.target) &&
+            !chatButton.contains(event.target)) {
+          toggleChat(chatButton, chatContainer);
+        }
+      });
     }
   }
 

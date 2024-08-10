@@ -49,6 +49,7 @@ Put the following tracking code (HTML tag) into your main HTML file like index.h
 - `popupTitle` (optional): The title of the chat popup, used as the iframe title attribute (default: "Chat with AI")
 - `popupTime` (optional): The time in seconds after which the chat window automatically opens. Set to -1 to disable auto-opening (default: -1)
 - `buttonPosition` (optional): The position of the chat button. Possible values are "TopLeft", "MiddleLeft", "BottomLeft", "TopRight", "MiddleRight", "BottomRight" (default: "BottomRight")
+- `closeOnLeave` (optional): Whether to close the chat window when clicking outside of it (default: `false`)
 
 An example to use the parameters is:
 
@@ -68,7 +69,8 @@ An example to use the parameters is:
         buttonText: "Chat with AI",
         popupTitle: "Casibase AI Assistant",
         popupTime: -1,
-        buttonPosition: "BottomRight"
+        buttonPosition: "BottomRight",
+        closeOnLeave: false
       });
     };
     var f = d.getElementsByTagName(s)[0];
