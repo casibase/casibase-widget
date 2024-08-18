@@ -188,15 +188,15 @@
 
     if (userConfig.endpoint) {
       const iframe = document.createElement("iframe");
-      iframe.src = userConfig.endpoint + "/?isRaw=1";;
+      iframe.src = userConfig.endpoint + "/?isRaw=1";
       iframe.title = userConfig.popupTitle;
       iframe.className = "chat-iframe";
+      iframe.onerror = () => {
+        showErrorMessage(container, "Sorry, there was an error loading the chat. Please try again later.");
+      };
       container.appendChild(iframe);
     } else {
-      const message = document.createElement("div");
-      message.className = "chat-message";
-      message.textContent = "Please configure the endpoint to enable the chat feature.";
-      container.appendChild(message);
+      showErrorMessage(container, "Please configure the endpoint to enable the chat feature.");
     }
 
     return container;
@@ -219,13 +219,27 @@
     }
   }
 
-  function initChatWidget(config) {
+  function showErrorMessage(container, message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'chat-message';
+    errorDiv.textContent = message;
+    container.innerHTML = '';
+    container.appendChild(errorDiv);
+  }
+
+  async function checkEndpoint(url) {
+    if (!url) return false;
+    try {
+      const response = await fetch(url, { method: 'HEAD' });
+      return response.ok;
+    } catch (error) {
+      console.error("Error checking endpoint:", error);
+      return false;
+    }
+  }
+  async function initChatWidget(config) {
     userConfig = { ...defaultConfig, ...config };
     userConfig.hoverColor = userConfig.hoverColor || darkenColor(userConfig.themeColor);
-
-    if (!userConfig.endpoint) {
-      console.warn("Casibase Widget error: No endpoint provided.");
-    }
 
     applyStyles();
     const chatButton = createChatButton();
@@ -233,9 +247,33 @@
     document.body.appendChild(chatButton);
     document.body.appendChild(chatContainer);
 
-    chatButton.addEventListener("click", () => toggleChat(chatButton, chatContainer));
+    let isEndpointAvailable = false;
+
+    if (!userConfig.endpoint) {
+      console.warn("Casibase Widget warning: No endpoint provided.");
+      showErrorMessage(chatContainer, "Please configure the endpoint to enable the chat feature.");
+    } else {
+      isEndpointAvailable = await checkEndpoint(userConfig.endpoint);
+      if (!isEndpointAvailable) {
+        console.warn("Casibase Widget warning: Endpoint is not available.");
+        showErrorMessage(chatContainer, "Sorry, the chat service is currently unavailable. Please try again later.");
+      }
+    }
+
+    chatButton.addEventListener("click", () => {
+      if (isEndpointAvailable) {
+        toggleChat(chatButton, chatContainer);
+      } else {
+        if (!userConfig.endpoint) {
+          showErrorMessage(chatContainer, "Please configure the endpoint to enable the chat feature.");
+        } else {
+          showErrorMessage(chatContainer, "Sorry, the chat service is currently unavailable. Please try again later.");
+        }
+        toggleChat(chatButton, chatContainer);
+      }
+    });
     
-    if (userConfig.popupTime >= 0) {
+    if (userConfig.popupTime >= 0 && isEndpointAvailable) {
       setTimeout(() => {
         if (!chatContainer.classList.contains("open")) {
           toggleChat(chatButton, chatContainer);
